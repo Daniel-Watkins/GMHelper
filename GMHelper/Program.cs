@@ -64,7 +64,7 @@ namespace GMHelper
                         break;
                     case MenuOptions.ADDLOCATION:
                         Console.WriteLine("Add a Location Chosen");
-                        this.AddLocation();
+                        //this.AddLocation();
                         break;
                     default:
                         Console.WriteLine("I'm sorry, but that is not a valid menu option");
@@ -101,7 +101,7 @@ namespace GMHelper
         {
             Console.WriteLine("Shortest Distance between two points");
 
-            Console.WriteLine("Starting Location");
+            Console.WriteLine("Starting Location?");
             string start = Console.ReadLine();
 
             Console.WriteLine("End Location?");
@@ -109,14 +109,50 @@ namespace GMHelper
 
             locationGraph.Dijkstra(start, end);
         }
-        public void AddLocation()
-        {
-            Console.WriteLine("Add Location");
+        //enum AddLocationOptions
+        //{
+        //    END = 1,
+        //    ADDLOCATIONNAME,
+        //    ADDLINKEDLOCATION,
+        //}
+        //public void AddLocation()
+        //{
+        //    Console.WriteLine("Add Location");
 
-            Console.WriteLine("Location name?");
-            string name = Console.ReadLine();
-            locationGraph.addLocation();
+        //    Console.WriteLine("Location name?");
+        //    string name = Console.ReadLine();
+        //    List<string> linkedlocations = new List<string>();
+        //    List<int> linkedLocDistance = new List<int>();
 
-        }
+        //    int addLocChoice;
+        //    Console.WriteLine("{0} : No more locations to link to New Location", (int)AddLocationOptions.END);
+        //    Console.WriteLine("{0} : Add location to link to NEW Location", (int)AddLocationOptions.ADDLINKEDLOCATION);
+        //    do
+        //    {
+        //        if (!Int32.TryParse(Console.ReadLine(), out addLocChoice))
+        //        {
+        //            Console.WriteLine("You need to type in a valid, whole number!");
+        //            continue;
+        //        }
+        //        switch ((AddLocationOptions)addLocChoice)
+        //        {
+        //            case AddLocationOptions.END:
+        //                break;
+        //            case AddLocationOptions.ADDLINKEDLOCATION:
+        //                Console.WriteLine("What is the name of the Location to be Linked to the NEW Location");
+        //                linkedlocations.Add(Console.ReadLine());
+        //                Console.WriteLine("How far is it between the Location to be Linked to the NEW Location");
+        //                Console.ReadLine();
+
+        //                break;
+        //            default:
+        //                Console.WriteLine("I'm sorry, but that is not a valid menu option");
+        //                break;
+        //        }
+        //    } while (addLocChoice != (int)AddLocationOptions.END);
+
+        //    locationGraph.addLocation();
+
+        //}
     }
 }
