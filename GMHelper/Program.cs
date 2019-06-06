@@ -22,7 +22,7 @@ namespace GMHelper
         ADDITEM,
         FINDITEM,
         SHORTESTROUTE,
-        ADDLOCATION,
+        //ADDLOCATION,
     }
     class UserInterface
     {
@@ -39,7 +39,7 @@ namespace GMHelper
                 Console.WriteLine("{0} : Add an Item", (int)MenuOptions.ADDITEM);
                 Console.WriteLine("{0} : Find an Item", (int)MenuOptions.FINDITEM);
                 Console.WriteLine("{0} : Find Shortest Route between two locations", (int)MenuOptions.SHORTESTROUTE);
-                Console.WriteLine("{0} : Add a Location", (int)MenuOptions.ADDLOCATION);
+                //Console.WriteLine("{0} : Add a Location", (int)MenuOptions.ADDLOCATION);
                 Console.WriteLine("Enter one of the above menu options and hit return");
                 if (!Int32.TryParse(Console.ReadLine(), out Choice))
                 {
@@ -63,8 +63,8 @@ namespace GMHelper
                         Console.WriteLine("Find Shortest Route Chosen");
                         this.ShortestDistance();
                         break;
-                    case MenuOptions.ADDLOCATION:
-                        Console.WriteLine("Add a Location Chosen");
+                    //case MenuOptions.ADDLOCATION:
+                    //    Console.WriteLine("Add a Location Chosen");
                         //this.AddLocation();
                         break;
                     default:
@@ -110,50 +110,53 @@ namespace GMHelper
 
             locationGraph.Dijkstra(start, end);
         }
-        //enum AddLocationOptions
-        //{
-        //    END = 1,
-        //    ADDLOCATIONNAME,
-        //    ADDLINKEDLOCATION,
-        //}
-        //public void AddLocation()
-        //{
-        //    Console.WriteLine("Add Location");
+        enum AddLocationOptions
+        {
+            END = 1,
+            ADDLOCATIONNAME,
+            ADDLINKEDLOCATION,
+        }
+        public void AddLocation()
+        {
+            Console.WriteLine("Add Location");
 
-        //    Console.WriteLine("Location name?");
-        //    string name = Console.ReadLine();
-        //    List<string> linkedlocations = new List<string>();
-        //    List<int> linkedLocDistance = new List<int>();
+            Console.WriteLine("Location name?");
+            string name = Console.ReadLine();
+            List<string> linkedlocations = new List<string>();
+            List<int> linkedLocDistance = new List<int>();
 
-        //    int addLocChoice;
-        //    Console.WriteLine("{0} : No more locations to link to New Location", (int)AddLocationOptions.END);
-        //    Console.WriteLine("{0} : Add location to link to NEW Location", (int)AddLocationOptions.ADDLINKEDLOCATION);
-        //    do
-        //    {
-        //        if (!Int32.TryParse(Console.ReadLine(), out addLocChoice))
-        //        {
-        //            Console.WriteLine("You need to type in a valid, whole number!");
-        //            continue;
-        //        }
-        //        switch ((AddLocationOptions)addLocChoice)
-        //        {
-        //            case AddLocationOptions.END:
-        //                break;
-        //            case AddLocationOptions.ADDLINKEDLOCATION:
-        //                Console.WriteLine("What is the name of the Location to be Linked to the NEW Location");
-        //                linkedlocations.Add(Console.ReadLine());
-        //                Console.WriteLine("How far is it between the Location to be Linked to the NEW Location");
-        //                Console.ReadLine();
+            locationGraph.CreateLocation(name);
+            
+            locationGraph.AllLocations.Where(a => a.Name == name);
+            int addLocChoice;
+            Console.WriteLine("{0} : No more locations to link to New Location", (int)AddLocationOptions.END);
+            Console.WriteLine("{0} : Add location to link to NEW Location", (int)AddLocationOptions.ADDLINKEDLOCATION);
+            do
+            {
+                if (!Int32.TryParse(Console.ReadLine(), out addLocChoice))
+                {
+                    Console.WriteLine("You need to type in a valid, whole number!");
+                    continue;
+                }
+                switch ((AddLocationOptions)addLocChoice)
+                {
+                    case AddLocationOptions.END:
+                        break;
+                    case AddLocationOptions.ADDLINKEDLOCATION:
+                        Console.WriteLine("What is the name of the Location to be Linked to the NEW Location");
+                        linkedlocations.Add(Console.ReadLine());
+                        Console.WriteLine("How far is it between the Location to be Linked to the NEW Location");
+                        Console.ReadLine();
 
-        //                break;
-        //            default:
-        //                Console.WriteLine("I'm sorry, but that is not a valid menu option");
-        //                break;
-        //        }
-        //    } while (addLocChoice != (int)AddLocationOptions.END);
+                        break;
+                    default:
+                        Console.WriteLine("I'm sorry, but that is not a valid menu option");
+                        break;
+                }
+            } while (addLocChoice != (int)AddLocationOptions.END);
+            
 
-        //    locationGraph.addLocation();
 
-        //}
+        }
     }
 }

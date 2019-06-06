@@ -19,7 +19,7 @@ namespace GMHelper
         {
 
         }
-        public void addLocation()
+        public void addLocation(string name)
         {
 
         }
