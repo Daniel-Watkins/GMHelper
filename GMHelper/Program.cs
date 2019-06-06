@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GMHelper
 {
+    //https://stackoverflow.com/questions/15306040/generate-an-adjacency-matrix-for-a-weighted-graph
     class Program
     {
         static void Main(string[] args)
