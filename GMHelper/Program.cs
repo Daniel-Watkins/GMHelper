@@ -20,6 +20,7 @@ namespace GMHelper
     {
         QUIT = 1,
         ADDITEM,
+        REMOVEITEM,
         FINDITEM,
         SHORTESTROUTE,
         ADDLOCATION,
@@ -37,6 +38,7 @@ namespace GMHelper
                 Console.WriteLine("Main Menu");
                 Console.WriteLine("{0} : End the program", (int)MenuOptions.QUIT);
                 Console.WriteLine("{0} : Add an Item", (int)MenuOptions.ADDITEM);
+                Console.WriteLine("{0} : Remove an Item", (int)MenuOptions.REMOVEITEM);
                 Console.WriteLine("{0} : Find an Item", (int)MenuOptions.FINDITEM);
                 Console.WriteLine("{0} : Find Shortest Route between two locations", (int)MenuOptions.SHORTESTROUTE);
                 Console.WriteLine("{0} : Add a Location", (int)MenuOptions.ADDLOCATION);
@@ -54,6 +56,10 @@ namespace GMHelper
                     case MenuOptions.ADDITEM:
                         Console.WriteLine("Add an Item Chosen");
                         this.AddItem();
+                        break;
+                    case MenuOptions.REMOVEITEM:
+                        Console.WriteLine("Remove an Item Chosen");
+                        this.RemoveItem();
                         break;
                     case MenuOptions.FINDITEM:
                         Console.WriteLine("Find an Item Chosen");
@@ -87,7 +93,18 @@ namespace GMHelper
 
             itemHashTable.hashAddItem(name, description);
         }
+        public void RemoveItem()
+        {
+            Console.WriteLine("Add an Item");
 
+            Console.WriteLine("Item name?");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Item description?");
+            string description = Console.ReadLine();
+
+
+        }
         public void FindItem()
         {
             Console.WriteLine("Find an Item");
