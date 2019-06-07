@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace GMHelper
 {
-    //https://stackoverflow.com/questions/15306040/generate-an-adjacency-matrix-for-a-weighted-graph
     class Program
     {
         static void Main(string[] args)
@@ -23,7 +22,7 @@ namespace GMHelper
         REMOVEITEM,
         FINDITEM,
         SHORTESTROUTE,
-        //ADDLOCATION,
+        ADDLOCATION,
     }
     class UserInterface
     {
@@ -41,7 +40,7 @@ namespace GMHelper
                 Console.WriteLine("{0} : Remove an Item", (int)MenuOptions.REMOVEITEM);
                 Console.WriteLine("{0} : Find an Item", (int)MenuOptions.FINDITEM);
                 Console.WriteLine("{0} : Find Shortest Route between two locations", (int)MenuOptions.SHORTESTROUTE);
-                //Console.WriteLine("{0} : Add a Location", (int)MenuOptions.ADDLOCATION);
+                Console.WriteLine("{0} : Add a Location", (int)MenuOptions.ADDLOCATION);
                 Console.WriteLine("Enter one of the above menu options and hit return");
                 if (!Int32.TryParse(Console.ReadLine(), out Choice))
                 {
@@ -69,9 +68,9 @@ namespace GMHelper
                         Console.WriteLine("Find Shortest Route Chosen");
                         this.ShortestDistance();
                         break;
-                    //case MenuOptions.ADDLOCATION:
-                    //    Console.WriteLine("Add a Location Chosen");
-                        //this.AddLocation();
+                    case MenuOptions.ADDLOCATION:
+                        Console.WriteLine("Add a Location Chosen");
+                        this.AddLocation();
                         break;
                     default:
                         Console.WriteLine("I'm sorry, but that is not a valid menu option");
@@ -95,15 +94,12 @@ namespace GMHelper
         }
         public void RemoveItem()
         {
-            Console.WriteLine("Add an Item");
+            Console.WriteLine("Remove an Item");
 
-            Console.WriteLine("Item name?");
+            Console.WriteLine("Name of Item to Remove?");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Item description?");
-            string description = Console.ReadLine();
-
-
+            itemHashTable.hashRemoveItem(name);
         }
         public void FindItem()
         {
@@ -114,7 +110,7 @@ namespace GMHelper
 
             itemHashTable.hashFindItem(name);
         }
-        
+
         public void ShortestDistance()
         {
             Console.WriteLine("Shortest Distance between two points");
@@ -139,17 +135,14 @@ namespace GMHelper
 
             Console.WriteLine("Location name?");
             string name = Console.ReadLine();
-            List<string> linkedlocations = new List<string>();
-            List<int> linkedLocDistance = new List<int>();
 
             locationGraph.CreateLocation(name);
             
-            locationGraph.AllLocations.Where(a => a.Name == name);
             int addLocChoice;
-            Console.WriteLine("{0} : No more locations to link to New Location", (int)AddLocationOptions.END);
-            Console.WriteLine("{0} : Add location to link to NEW Location", (int)AddLocationOptions.ADDLINKEDLOCATION);
             do
             {
+                Console.WriteLine("{0} : No more locations to link to New Location", (int)AddLocationOptions.END);
+                Console.WriteLine("{0} : Add location to link to NEW Location", (int)AddLocationOptions.ADDLINKEDLOCATION);
                 if (!Int32.TryParse(Console.ReadLine(), out addLocChoice))
                 {
                     Console.WriteLine("You need to type in a valid, whole number!");
@@ -161,10 +154,23 @@ namespace GMHelper
                         break;
                     case AddLocationOptions.ADDLINKEDLOCATION:
                         Console.WriteLine("What is the name of the Location to be Linked to the NEW Location");
-                        linkedlocations.Add(Console.ReadLine());
-                        Console.WriteLine("How far is it between the Location to be Linked to the NEW Location");
-                        Console.ReadLine();
-
+                        string linkedLocation = Console.ReadLine();
+                        bool validDistance = false;
+                        while(validDistance == false)
+                        {
+                            Console.WriteLine("How far is it between the Location to be Linked to the NEW Location");
+                            int linkedDistance;
+                            if (Int32.TryParse(Console.ReadLine(), out linkedDistance))
+                            {
+                                locationGraph.AllLocations.FirstOrDefault(a => a.Name == name).AddPath(locationGraph.AllLocations.FirstOrDefault(k => k.Name == linkedLocation), linkedDistance);
+                                locationGraph.adjacency = locationGraph.CreateAdjMatrix();
+                                validDistance = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You need to type in a valid, whole number!");
+                            }
+                        }
                         break;
                     default:
                         Console.WriteLine("I'm sorry, but that is not a valid menu option");
@@ -172,8 +178,6 @@ namespace GMHelper
                 }
             } while (addLocChoice != (int)AddLocationOptions.END);
             
-
-
         }
     }
 }

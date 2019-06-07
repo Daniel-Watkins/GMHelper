@@ -9,17 +9,36 @@ namespace GMHelper
     class LocationGraph
     {
         public List<Location> AllLocations = new List<Location>();
+        public int?[,] adjacency;
         public Location CreateLocation(string name)
         {
             var location = new Location(name);
             AllLocations.Add(location);
             return location;
         }
-        public void Dijkstra(string start, string end)
-        {
 
+        public int?[,] CreateAdjMatrix()
+        {
+            int?[,] adj = new int?[AllLocations.Count, AllLocations.Count];
+
+            for(int i = 0; i < AllLocations.Count; i++)
+            {
+                Location loc1 = AllLocations[i];
+
+                for(int j = 0; j < AllLocations.Count; j++)
+                {
+                    Location loc2 = AllLocations[j];
+                    var path = loc1.paths.FirstOrDefault(a => a.Child == loc2);
+
+                    if(path != null)
+                    {
+                        adj[i, j] = path.weight;
+                    }
+                }
+            }
+            return adj;
         }
-        public void addLocation(string name)
+        public void Dijkstra(string start, string end)
         {
 
         }

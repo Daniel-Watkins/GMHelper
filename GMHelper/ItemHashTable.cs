@@ -14,10 +14,23 @@ namespace GMHelper
             try
             {
                 items.Add(name, description);
+                Console.WriteLine("Item with the name \"{0}\" Added", name);
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("An item with the name {0} already exists.", name);
+            }
+        }
+        public void hashRemoveItem(string name)
+        {
+            try
+            {
+                items.Remove(name);
+                Console.WriteLine("Item with the name \"{0}\" Removed", name);
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("Item with the name \"{0}\" not found", name);
             }
         }
         public void hashFindItem(string name)
