@@ -34,13 +34,119 @@ namespace GMHelper
                     {
                         adj[i, j] = path.weight;
                     }
+                    else if(i == j)
+                    {
+                        adj[i, j] = 0;
+                    }
+                    else
+                    {
+                        adj[i, j] = int.MaxValue;
+                    }
                 }
             }
             return adj;
         }
-        public void Dijkstra(string start, string end)
+        public void PrintShortestDistMap()
         {
+            if(adjacency != null)
+            {
+                FloydWarshall(adjacency);
+            }
+            else
+            {
+                Console.WriteLine("No map to print");
+            }
+        }
+        public void FloydWarshall(int?[,] graph)
+        {
+            int countOfLocations = graph.GetLength(1);
+            int?[,] distances = graph.Clone() as int?[,];
+            int?[,] predeccesor = new int?[AllLocations.Count, AllLocations.Count];
+            for (int x = 0; x < countOfLocations; x++)
+            {
+                for (int i = 0; i < countOfLocations; i++)
+                {
+                    if (x == i || distances[i, x] == int.MaxValue)
+                    {
+                        continue;
+                    }
+                    for (int j = 0; j < countOfLocations; j++)
+                    {
+                        if (distances[i, x] + distances[x, j] < distances[i, j])
+                        {
+                            distances[i, j] = distances[i, x] + distances[x, j];
+                            predeccesor[i, j] = x;
+                        }
+                    }
+                }
+            }
+            printDistances(distances);
+            printPredeccesors(predeccesor);      
+        }
 
+        public void printDistances(int?[,] dist)
+        {
+            Console.Write("       ");
+            for (int i = 0; i < dist.GetLength(1); i++)
+            {
+                Console.Write("{0}  ", AllLocations[i]);
+            }
+            Console.WriteLine();
+            for(int i = 0; i < dist.GetLength(1); i++)
+            {
+                Console.Write("{0} | [ ", AllLocations[i]);
+                for (int j = 0; j < dist.GetLength(1); j++)
+                {
+
+                    if (dist[i, j] == null)
+                    {
+                        Console.Write(" .,");
+                    }
+                    else if(dist[i, j] == int.MaxValue)
+                    {
+                        Console.Write(" inf,");
+                    }
+                    else
+                    {
+                        Console.Write(" {0},", dist[i, j]);
+                    }
+
+                }
+                Console.Write(" ]\r\n");
+            }
+            Console.Write("\r\n");
+        }
+
+        public void printPredeccesors(int?[,] pred)
+        {
+            Console.Write("       ");
+            for (int i = 0; i < pred.GetLength(1); i++)
+            {
+                Console.Write("{0}:{1}  ", i, AllLocations[i]);
+            }
+            Console.WriteLine();
+            for (int i = 0; i < pred.GetLength(1); i++)
+            {
+                Console.Write("{0}:{1} | [ ", i, AllLocations[i]);
+                for (int j = 0; j < pred.GetLength(1); j++)
+                {
+                    if (i == j)
+                    {
+                        Console.Write(" &,");
+                    }
+                    else if (pred[i, j] == null)
+                    {
+                        Console.Write(" .,");
+                    }
+                    else
+                    {
+                        Console.Write(" {0},", pred[i, j]);
+                    }
+
+                }
+                Console.Write(" ]\r\n");
+            }
+            Console.Write("\r\n");
         }
     }
     public class Location

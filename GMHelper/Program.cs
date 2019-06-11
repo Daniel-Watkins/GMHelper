@@ -39,7 +39,7 @@ namespace GMHelper
                 Console.WriteLine("{0} : Add an Item", (int)MenuOptions.ADDITEM);
                 Console.WriteLine("{0} : Remove an Item", (int)MenuOptions.REMOVEITEM);
                 Console.WriteLine("{0} : Find an Item", (int)MenuOptions.FINDITEM);
-                Console.WriteLine("{0} : Find Shortest Route between two locations", (int)MenuOptions.SHORTESTROUTE);
+                Console.WriteLine("{0} : Map of shortest routes between locations", (int)MenuOptions.SHORTESTROUTE);
                 Console.WriteLine("{0} : Add a Location", (int)MenuOptions.ADDLOCATION);
                 Console.WriteLine("Enter one of the above menu options and hit return");
                 if (!Int32.TryParse(Console.ReadLine(), out Choice))
@@ -65,8 +65,8 @@ namespace GMHelper
                         this.FindItem();
                         break;
                     case MenuOptions.SHORTESTROUTE:
-                        Console.WriteLine("Find Shortest Route Chosen");
-                        this.ShortestDistance();
+                        Console.WriteLine("Viewing Map of shortest distances");
+                        this.ShortestDistanceMap();
                         break;
                     case MenuOptions.ADDLOCATION:
                         Console.WriteLine("Add a Location Chosen");
@@ -82,8 +82,6 @@ namespace GMHelper
         
         public void AddItem()
         {
-            Console.WriteLine("Add an Item");
-
             Console.WriteLine("Item name?");
             string name = Console.ReadLine();
 
@@ -94,8 +92,6 @@ namespace GMHelper
         }
         public void RemoveItem()
         {
-            Console.WriteLine("Remove an Item");
-
             Console.WriteLine("Name of Item to Remove?");
             string name = Console.ReadLine();
 
@@ -103,25 +99,15 @@ namespace GMHelper
         }
         public void FindItem()
         {
-            Console.WriteLine("Find an Item");
-
             Console.WriteLine("Item name?");
             string name = Console.ReadLine();
 
             itemHashTable.hashFindItem(name);
         }
 
-        public void ShortestDistance()
+        public void ShortestDistanceMap()
         {
-            Console.WriteLine("Shortest Distance between two points");
-
-            Console.WriteLine("Starting Location?");
-            string start = Console.ReadLine();
-
-            Console.WriteLine("End Location?");
-            string end = Console.ReadLine();
-
-            locationGraph.Dijkstra(start, end);
+            locationGraph.PrintShortestDistMap();
         }
         enum AddLocationOptions
         {
@@ -131,8 +117,6 @@ namespace GMHelper
         }
         public void AddLocation()
         {
-            Console.WriteLine("Add Location");
-
             Console.WriteLine("Location name?");
             string name = Console.ReadLine();
 
