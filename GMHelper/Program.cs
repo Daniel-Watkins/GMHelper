@@ -135,7 +135,6 @@ namespace GMHelper
         enum AddLocationOptions
         {
             END = 1,
-            ADDLOCATIONNAME,
             ADDLINKEDLOCATION,
         }
         public void AddLocation()
