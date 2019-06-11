@@ -26,8 +26,8 @@ namespace GMHelper
     }
     class UserInterface
     {
-        ItemHashTable itemHashTable = new ItemHashTable();
         LocationGraph locationGraph = new LocationGraph();
+        Dictionary<string, string> items = new Dictionary<string, string>();
         public void RunProgram()
         {
             int Choice;
@@ -88,21 +88,44 @@ namespace GMHelper
             Console.WriteLine("Item description?");
             string description = Console.ReadLine();
 
-            itemHashTable.hashAddItem(name, description);
+            try
+            {
+                items.Add(name, description);
+                Console.WriteLine("Item with the name \"{0}\" Added", name);
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("An item with the name {0} already exists.", name);
+            }
         }
         public void RemoveItem()
         {
             Console.WriteLine("Name of Item to Remove?");
             string name = Console.ReadLine();
 
-            itemHashTable.hashRemoveItem(name);
+            try
+            {
+                items.Remove(name);
+                Console.WriteLine("Item with the name \"{0}\" Removed", name);
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("Item with the name \"{0}\" not found", name);
+            }
         }
         public void FindItem()
         {
             Console.WriteLine("Item name?");
             string name = Console.ReadLine();
 
-            itemHashTable.hashFindItem(name);
+            try
+            {
+                Console.WriteLine("Name: {0}\nDescription: {1}", name, items[name]);
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("Item with the name \"{0}\" not found", name);
+            }
         }
 
         public void ShortestDistanceMap()
