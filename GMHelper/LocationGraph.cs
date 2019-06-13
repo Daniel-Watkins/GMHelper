@@ -40,7 +40,7 @@ namespace GMHelper
                     }
                     else
                     {
-                        adj[i, j] = int.MaxValue;
+                        adj[i, j] = 100000;
                     }
                 }
             }
@@ -66,7 +66,7 @@ namespace GMHelper
             {
                 for (int i = 0; i < countOfLocations; i++)
                 {
-                    if (x == i || distances[i, x] == int.MaxValue)
+                    if (x == i || distances[i, x] == 100000)
                     {
                         continue;
                     }
@@ -102,7 +102,7 @@ namespace GMHelper
                     {
                         Console.Write(" .,");
                     }
-                    else if(dist[i, j] == int.MaxValue)
+                    else if(dist[i, j] == 100000)
                     {
                         Console.Write(" inf,");
                     }
