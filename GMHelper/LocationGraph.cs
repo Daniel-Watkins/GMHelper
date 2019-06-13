@@ -81,7 +81,7 @@ namespace GMHelper
                 }
             }
             printDistances(distances);
-            printPredeccesors(predeccesor);      
+            //printPredeccesors(predeccesor);      
         }
 
         public void printDistances(int?[,] dist)
@@ -89,12 +89,12 @@ namespace GMHelper
             Console.Write("       ");
             for (int i = 0; i < dist.GetLength(1); i++)
             {
-                Console.Write("{0}  ", AllLocations[i]);
+                Console.Write("{0}  ", AllLocations[i].Name);
             }
             Console.WriteLine();
             for(int i = 0; i < dist.GetLength(1); i++)
             {
-                Console.Write("{0} | [ ", AllLocations[i]);
+                Console.Write("{0} | [ ", AllLocations[i].Name);
                 for (int j = 0; j < dist.GetLength(1); j++)
                 {
 

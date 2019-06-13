@@ -164,13 +164,21 @@ namespace GMHelper
                         bool validDistance = false;
                         while(validDistance == false)
                         {
-                            Console.WriteLine("How far is it between the Location to be Linked to the NEW Location");
+                            Console.WriteLine("How many whole miles is it between the Location to be Linked to the NEW Location");
                             int linkedDistance;
                             if (Int32.TryParse(Console.ReadLine(), out linkedDistance))
                             {
-                                locationGraph.AllLocations.FirstOrDefault(a => a.Name == name).AddPath(locationGraph.AllLocations.FirstOrDefault(k => k.Name == linkedLocation), linkedDistance);
-                                locationGraph.adjacency = locationGraph.CreateAdjMatrix();
-                                validDistance = true;
+                                try
+                                {
+                                    locationGraph.AllLocations.FirstOrDefault(a => a.Name == name).AddPath(locationGraph.AllLocations.FirstOrDefault(k => k.Name == linkedLocation), linkedDistance);
+                                    locationGraph.adjacency = locationGraph.CreateAdjMatrix();
+                                    validDistance = true;
+                                }
+                                catch(ArgumentNullException)
+                                {
+                                    Console.WriteLine("No location with that name!");
+                                }
+                                
                             }
                             else
                             {
