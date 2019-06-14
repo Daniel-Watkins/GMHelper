@@ -177,6 +177,7 @@ namespace GMHelper
                                 catch(ArgumentNullException)
                                 {
                                     Console.WriteLine("No location with that name!");
+                                    break;
                                 }
                                 
                             }
